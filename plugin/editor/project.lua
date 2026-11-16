@@ -11,7 +11,7 @@ vim.pack.add({
 -- Configuration
 require("neovim-project").setup({
   projects = {
-    "~/projects/*",
+    "~/Projects/*",
     "~/.config/nvim/",
   },
   picker = {
