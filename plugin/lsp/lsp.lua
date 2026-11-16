@@ -16,8 +16,21 @@ vim.diagnostic.config({
   underline = true,
 })
 
-local has_blink, blink = pcall(require, "blink.cmp")
-local capabilities = has_blink and blink.get_lsp_capabilities() or {}
+local blink = require("blink.cmp")
+local capabilities = vim.tbl_deep_extend(
+  "force",
+  blink.get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities()) or {},
+  {
+    workspace = {
+      didChangeWatchedFiles = {
+        dynamicRegistration = true,
+        relativePatternSupport = true,
+      },
+    },
+  }
+)
+
+vim.lsp.config("*", { capabilities = capabilities })
 
 local servers = {
   clangd = {
