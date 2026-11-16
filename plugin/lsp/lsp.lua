@@ -88,6 +88,15 @@ local servers = {
   html = {},
 
   cssls = {},
+
+  spyglassmc_language_server = {
+    filetypes = { "mcfunction", "json" },
+    workspace_required = true,
+    root_markers = { "pack.mcmeta", ".git" },
+    init_options = {
+      dataFolder = true,
+    },
+  },
 }
 
 local ensure_installed = {}
