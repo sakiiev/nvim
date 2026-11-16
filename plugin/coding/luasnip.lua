@@ -3,7 +3,13 @@ vim.pack.add({
   "https://github.com/rafamadriz/friendly-snippets",
 })
 
--- local ls = require("luasnip")
+local ls = require("luasnip")
+
+ls.setup({
+  history = false,
+  region_check_events = "CursorMoved",
+  delete_check_events = "TextChanged",
+})
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
