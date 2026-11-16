@@ -6,30 +6,28 @@ vim.pack.add({
 })
 
 require("blink.cmp").setup({
-  keymap = { preset = "super-tab" },
+  keymap = {
+    preset = "default",
 
-  snippets = { preset = "luasnip" },
-  signature = { enabled = true },
+    ["<Tab>"] = { "accept", "snippet_forward", "fallback" },
+    ["<S-Tab>"] = { "snippet_backward", "fallback" },
+  },
+
+  -- signature = { enabled = true },
 
   completion = {
     documentation = { auto_show = false },
-    ghost_text = { enabled = false },
-
-    menu = {
-      max_height = 7,
-
-      draw = {
-        columns = {
-          { "kind_icon" },
-          { "label", gap = 1 },
-        },
-
-        components = {
-          label = {
-            width = { max = 35 },
-          },
-        },
-      },
+    ghost_text = { enabled = true },
+    menu = { auto_show = true },
+    trigger = {
+      show_on_keyword = true,
+      show_on_trigger_character = true,
+      show_on_blocked_trigger_characters = function()
+        if vim.bo.filetype == "mcfunction" then
+          return { "\n", "\t" }
+        end
+        return { " ", "\n", "\t" }
+      end,
     },
   },
 
@@ -38,10 +36,25 @@ require("blink.cmp").setup({
   },
 
   sources = {
-    default = { "lsp", "path", "snippets" },
+    default = { "lsp", "path", "snippets", "buffer" },
+    per_filetype = {
+      lua = { inherit_defaults = true, "lazydev" },
+    },
+    providers = {
+      snippets = { score_offset = -3 },
+      buffer = { score_offset = -5 },
+      lazydev = {
+        name = "LazyDev",
+        module = "lazydev.integrations.blink",
+        score_offset = 100,
+      },
+    },
   },
+
+  snippets = { preset = "luasnip" },
 
   fuzzy = {
     implementation = "lua",
+    sorts = { "exact", "score", "sort_text" },
   },
 })
