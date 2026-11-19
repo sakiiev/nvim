@@ -6,7 +6,7 @@ require("toggleterm").setup({
   open_mapping = [[<c-\>]],
 
   size = 12,
-  direction = "horizontal",
+  direction = "float",
 
   shade_terminals = false,
 })
