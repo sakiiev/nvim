@@ -3,7 +3,10 @@ vim.g.neovide_padding_right = 6
 vim.g.neovide_padding_left = 6
 
 vim.g.neovide_cursor_animation_length = 0
-vim.g.neovide_scroll_animation_length = 0
+
+vim.g.neovide_scroll_animation_length = 0.15
+vim.g.neovide_scroll_animation_far_lines = 1
+vim.opt.mousescroll = "ver:2,hor:4"
 
 vim.g.neovide_cursor_animate_command_line = false
 
